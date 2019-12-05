@@ -1,0 +1,108 @@
+/**
+ * Created by chich on 2019/1/25.
+ */
+
+.ksh-home-entry {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  margin-left: -358px;
+  margin-top: -239px;
+  width: 716px;
+  height: 478px;
+  background: #52199070;
+}
+.ksh-home-entry-title {
+  width: 182px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 16px;
+  text-align: center;
+  color: $ksh-home-entry-title-color;
+}
+.ksh-home-entry-list {
+  width: 600px;
+  padding-top: 50px;
+  margin: 0 auto;
+}
+.ksh-home-entry__item {
+  float: left;
+  width: 100px;
+  height: 120px;
+  margin: 23px 25px;
+  border-radius: 3px;
+  text-align: center;
+  background: $ksh-home-entry-item-bg;
+  &-name {
+    font-size: 12px;
+    line-height: 18px;
+    color: $ksh-home-entry-item-color;
+    @include line-ellipsis;
+  }
+  &-link {
+    display: block;
+    height: 106px;
+    padding-top: 14px;
+  }
+}
+
+.ksh-home-entry__item:hover {
+  background: $ksh-home-entry-item-bg-hover;
+  .ksh-home-entry__item-name {
+    color: $ksh-home-entry-item-hover-color;
+  }
+  .ksh-home-entry__icon{
+    &.icon- {
+      &person-trail {
+        background-position: -60px 0;
+      }
+      &car-trail {
+        background-position: -60px -60px;
+      }
+      &wifi-trail {
+        background-position: -60px -120px;
+      }
+      &face-trail {
+        background-position: -60px -180px;
+      }
+      &find-person {
+        background-position: -60px -240px;
+      }
+      &find-car {
+        background-position: -60px -300px;
+      }
+      &find-mac {
+        background-position: -60px -360px;
+      }
+    }
+  }
+}
+.ksh-home-entry__icon {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: $ksh-home-entry-icon;
+  &.icon- {
+    &person-trail {
+      background-position: 0 0;
+    }
+    &car-trail {
+      background-position: 0 -60px;
+    }
+    &wifi-trail {
+      background-position: 0 -120px;
+    }
+    &face-trail {
+      background-position: 0 -180px;
+    }
+    &find-person {
+      background-position: 0 -240px;
+    }
+    &find-car {
+      background-position: 0 -300px;
+    }
+    &find-mac {
+      background-position: 0 -360px;
+    }
+  }
+}

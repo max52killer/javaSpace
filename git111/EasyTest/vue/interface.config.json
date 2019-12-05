@@ -1,0 +1,12 @@
+{
+  "configuration":[
+    {
+      "context": ["/EasyTest"],
+      "target": "http://127.0.0.1:8888",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/EasyTest": "/"
+      }
+    }
+  ]
+}

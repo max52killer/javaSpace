@@ -1,0 +1,52 @@
+{
+    "properties": {
+        "skynet.priority": "4"
+    },
+    "body": {
+        "cameraCode": "0179063000000000000",
+        "cameraName": "潘集-华李村华李大桥枪F",
+        "cameraVender": "hikvision",
+        "faceImgUri": "http://34.56.4.27:8090/group1/M05/24/4C/IjgEG1y2iduAEzXeAAA-WP07S-E330.jpg",
+        "faceRect": {
+            "bottom": 744,
+            "left": 1226,
+            "right": 1412,
+            "top": 557
+        },
+        "hitList": [
+            {
+                "loginName": "admin",
+                "orgCode": "4622a886-c20b-4b45-a2ca-2f53b0fd08e0",
+                "orgName": "淮南市公安局",
+                "userName": "系统管理员",
+                "id": "818285",
+                "idCard": "34040320000701572X",
+                "trackId": "222425195702180216",
+                "faceName": "诸葛孔明",
+                "targetName": "全国ZT",
+                "dbName": "0_qgzt_20190316135648",
+                "reason": "全国在逃",
+                "warnVoice": "voice1",
+                "picUrl": "http://34.56.4.27:8090/group1/M05/3D/32/IjgEG1yPYLSAYwp8AAATz8Aex14392.jpg",
+                "checkScore": 0.95,
+                "score": 0.9215966
+            }
+        ],
+        "id": "a4248813-4ef6-4655-8c03-75c9127f92366100037",
+        "imgUri": "http://34.56.4.27:8090/group1/M01/24/4C/IjgEHFy2idqARF1BAAYIkmi7h0Q964.jpg",
+        "isMaxScore": "1",
+        "isView": "0",
+        "latitude": "32.7642451",
+        "longitude": "116.951022",
+        "trackIdx": "5075",
+        "state": "1",
+        "warnTime": 1561710405769,
+        "createOn": "2019-04-17 10:05:17",
+        "timestamp": 1555466717905,
+        "props": {
+            "taskType": 1,
+            "dbNames": "0_qgzt_20190316135648",
+            "taskId": 467
+        }
+    }
+}

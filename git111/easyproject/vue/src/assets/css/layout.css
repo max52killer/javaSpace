@@ -1,0 +1,38 @@
+.qb-main{
+
+}
+.qb-main-container{
+  height: calc(100vh);
+}
+.el-main::-webkit-scrollbar {
+  width: 6px
+}
+
+.el-main::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.el-main:hover::-webkit-scrollbar-thumb {
+  background: hsla(0,0%,53%,.4)
+}
+
+.el-main:hover::-webkit-scrollbar-track {
+  background: hsla(0,0%,53%,.1)
+}
+.qb-content{
+  height: 100%;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.tips-title{
+  position: absolute;
+  bottom: 25px;
+  font-family: 微软雅黑;
+  font-size: 20px;
+  color: blue;
+  font-weight: bold;
+}
+.tips-left-box{
+  position: absolute;
+  top:12px;
+}

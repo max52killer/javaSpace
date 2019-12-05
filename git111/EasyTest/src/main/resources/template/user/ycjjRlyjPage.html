@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人脸预警模型快捷测试</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <style type="text/css">
+        .all {
+            border: 1px solid #000;
+            height: 700px;
+        }
+
+        .title {
+            border-bottom: 1px solid #000;
+        }
+
+        .content {
+            text-align: center;
+            clear: both;
+        }
+
+        .left {
+            float: left;
+            width: 50%;
+            height: 250px;
+        }
+
+        .right {
+            width: 50%;
+            float: right;
+            height: 250px;
+        }
+
+        .btn {
+            margin: 1px 10px 1px 1px;
+        }
+
+        .result {
+            float: left;
+            padding-left: 210px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    </style>
+    <script type="application/javascript">
+        var demo = {};
+        var config={};
+        $(document).ready(function () {
+            $.getJSON("json/rlyj.json", function (data) {
+                $("#demoData").val(JSON.stringify(data));
+                demo = data;
+            });
+            $.getJSON("json/config.json", function (data) {
+                config = data;
+                console.log("config::",config);
+            });
+            //设置选项初始时间
+            var warnTime=new Date().Format("yyyyMMddHHmmss");
+            $("[name='WARNTIME']").val(warnTime);
+        });
+
+        function handleSjSfzh() {
+//            var sfzh = getId_no();
+            var sfzh=getSfzhRandom();
+            $("[name='SFZH']").val(sfzh);
+            var xm = getXmRandom();
+            $("[name='XM']").val(xm);
+        }
+
+        function getId_no() {
+            var coefficientArray = ["7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"];// 加权因子
+            var lastNumberArray = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];// 校验码
+            var address = "340403"; // 住址
+            var birthday = "20000701"; // 生日
+            var s = Math.floor(Math.random() * 10).toString() + Math.floor(Math.random() * 10).toString() + Math.floor(Math.random() * 10).toString();
+            var array = (address + birthday + s).split("");
+            var total = 0;
+            for (i in array) {
+                total = total + parseInt(array[i]) * parseInt(coefficientArray[i]);
+            }
+            var lastNumber = lastNumberArray[parseInt(total % 11)];
+            var id_no_String = address + birthday + s + lastNumber;
+            return id_no_String;
+        }
+        function getSfzhRandom(){
+            var sfzhs=config.sfzhs;
+            var i=Math.floor(Math.random() * sfzhs.length);
+            return sfzhs[i];
+        }
+
+        function handleGjId() {
+            var uuid = "";
+            for (var i = 0; i < 4; i++) {
+                uuid += get4Random(5);
+                if (i < 3) {
+                    uuid += "-";
+                }
+            }
+            $("[name='GJID']").val(uuid);
+        }
+
+        function get4Random(k) {
+            var num = "";
+            for (var i = 0; i < k; i++) {
+                num += Math.floor(Math.random() * 10);
+            }
+            return num;
+        }
+
+        function handleCameraCode() {
+            var num = "";
+            for (var i = 0; i < 20; i++) {
+                num += Math.floor(Math.random() * 10);
+            }
+            $("[name='SBBH']").val(num);
+            var sbmc = getSbRandom();
+            $("[name='SBMC']").val(sbmc);
+        }
+
+        function handleZpId() {
+            var arr = config.rlyjids;
+            var i = Math.floor(Math.random() * 4);
+            $("[name='ZPID']").val(arr[i]);
+        }
+
+        function getXmRandom() {
+            var familyNames = new Array(
+                "赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈",
+                "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
+                "何", "吕", "施", "张", "孔", "曹", "严", "华", "金", "魏",
+                "陶", "姜", "戚", "谢", "邹", "喻", "柏", "水", "窦", "章",
+                "云", "苏", "潘", "葛", "奚", "范", "彭", "郎", "鲁", "韦",
+                "昌", "马", "苗", "凤", "花", "方", "俞", "任", "袁", "柳",
+                "酆", "鲍", "史", "唐", "费", "廉", "岑", "薛", "雷", "贺",
+                "倪", "汤", "滕", "殷", "罗", "毕", "郝", "邬", "安", "常",
+                "乐", "于", "时", "傅", "皮", "卞", "齐", "康", "伍", "余",
+                "元", "卜", "顾", "孟", "平", "黄", "和", "穆", "萧", "尹"
+            );
+            var givenNames = new Array(
+                "子璇", "淼", "国栋", "夫子", "瑞堂", "甜", "敏", "尚", "国贤", "贺祥", "晨涛",
+                "昊轩", "易轩", "益辰", "益帆", "益冉", "瑾春", "瑾昆", "春齐", "杨", "文昊",
+                "东东", "雄霖", "浩晨", "熙涵", "溶溶", "冰枫", "欣欣", "宜豪", "欣慧", "建政",
+                "美欣", "淑慧", "文轩", "文杰", "欣源", "忠林", "榕润", "欣汝", "慧嘉", "新建",
+                "建林", "亦菲", "林", "冰洁", "佳欣", "涵涵", "禹辰", "淳美", "泽惠", "伟洋",
+                "涵越", "润丽", "翔", "淑华", "晶莹", "凌晶", "苒溪", "雨涵", "嘉怡", "佳毅",
+                "子辰", "佳琪", "紫轩", "瑞辰", "昕蕊", "萌", "明远", "欣宜", "泽远", "欣怡",
+                "佳怡", "佳惠", "晨茜", "晨璐", "运昊", "汝鑫", "淑君", "晶滢", "润莎", "榕汕",
+                "佳钰", "佳玉", "晓庆", "一鸣", "语晨", "添池", "添昊", "雨泽", "雅晗", "雅涵",
+                "清妍", "诗悦", "嘉乐", "晨涵", "天赫", "玥傲", "佳昊", "天昊", "萌萌", "若萌"
+            );
+            var i = Math.floor(Math.random() * familyNames.length);
+            var familyName = familyNames[i];
+            var j = Math.floor(Math.random() * givenNames.length);
+            var givenName = givenNames[j];
+            var name = familyName + givenName;
+            return name;
+        }
+
+        function getSbRandom() {
+            var familyNames = new Array(
+                "大通区", "田家庵区", "谢家集区", "八公山区", "潘集区");
+            var givenNames = [
+                "芮集村", "三里沟村", "陈圩村", "岗胡村",
+                "南金村", "胡庙村", "高山村", "盛楼村",
+                "田岗村", "安成镇", "舜耕镇", "曹庵镇"
+            ];
+            var i = Math.floor(Math.random() * 4);
+            var familyName = familyNames[i];
+            var j = Math.floor(Math.random() * 8);
+            var givenName = givenNames[j];
+            var zm = String.fromCharCode(Math.floor(Math.random() * 26) + "A".charCodeAt(0));
+            var name = familyName + "-" + givenName + "枪" + zm;
+            return name;
+        }
+
+        function getScoreRandom() {
+            //产生0-1000000之间的数字
+            var num = Math.floor(Math.random() * 1000000);
+            $("[name='SCORE']").val("0." + num);
+        }
+        function getNowDate(){
+            $("[name='WARNTIME']").val(new Date().Format("yyyyMMddHHmmss"));
+        }
+
+        function ok() {
+            var res = $("#resultData").val();
+            if (res) {
+                $("#resultData").val("");
+            }
+            var resultData = demo;
+            if (typeof resultData.body.faceRect == "object") {
+                resultData.body.faceRect = JSON.stringify(resultData.body.faceRect);
+            }
+            if (typeof resultData.body.props == "object") {
+                resultData.body.props = JSON.stringify(resultData.body.props);
+            }
+            var sfzh = $("[name='SFZH']").val();
+            var sbbh = $("[name='SBBH']").val();
+            var gjid = $("[name='GJID']").val();
+            var zpid = $("[name='ZPID']").val();
+            var score = $("[name='SCORE']").val();
+            var xm = $("[name='XM']").val();
+            var sbmc = $("[name='SBMC']").val();
+            var warnTime=$("[name='WARNTIME']").val();
+            if (sfzh) {
+                resultData.body.hitList[0].idCard = sfzh;
+                resultData.body.hitList[0].faceName = xm;
+            }
+            if (sbbh) {
+                resultData.body.cameraCode = sbbh;
+                resultData.body.cameraName = sbmc;
+            }
+            if (gjid) {
+                resultData.body.id = gjid;
+            }
+            if (zpid) {
+                resultData.body.hitList[0].id = zpid;
+            }
+            if (score) {
+                resultData.body.hitList[0].score = Number(score);
+            }
+            if(warnTime){
+                var warnDate=Date.parse(new Date(currentTime(warnTime)));
+                console.log(warnDate);
+                resultData.body.warnTime=warnDate;
+            }
+            $("#resultData").val(JSON.stringify(resultData));
+            return resultData;
+        }
+        function currentTime(time){
+            var sTime=String(time);
+            return sTime.substr(0,4)+"-"+sTime.substr(4,2)+"-"+sTime.substr(6,2)+" "+sTime.substr(8,2)+":"+sTime.substr(10,2)+":"+sTime.substr(12,2);
+        }
+
+        function cancle() {
+            $("[name='SFZH']").val("");
+            $("[name='SBBH']").val("");
+            $("[name='GJID']").val("");
+            $("[name='ZPID']").val("");
+            $("[name='SCORE']").val("");
+            $("[name='resultData']").val("");
+            $("[name='XM']").val("");
+            $("[name='SBMC']").val("");
+            $("[name='WARNTIME']").val("");
+        }
+
+        function sendQq() {
+            var res = $("#resultData").val();
+            if (!res) {
+                alert("需要先生成数据！！！");
+            }
+            console.log("发送的数据：：：", res);
+            $.ajax({
+                url: config.qqUrl,
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                data: res,
+                dataType: "text",//后端返回数据类型
+                success: function (result) {
+                    var r = confirm("mq数据模拟推送成功！！是否清空生成的数据？");
+                    if (r == true) {
+                        $("#resultData").val("");
+                    }
+                }
+            })
+        }
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "H+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+    </script>
+</head>
+<body>
+<div class="all">
+    <div class="title">
+        <span><span style="font-size:x-large;">异常聚集人脸模型测试</span>(注：直接点击生成数据时会直接使用示例中的数据)</span>
+    </div>
+    <div class="content">
+        <table border="1">
+            <thead>
+            <th>字段</th>
+            <th>内容</th>
+            <th>操作</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>设备编号（cameraCode和cameraName）</td>
+                <td>
+                    <input type="text" name="SBBH">&nbsp;<input type="text" name="SBMC">
+                </td>
+                <td>
+                    <button class="btn" onclick="handleCameraCode()">随机生成</button>
+                </td>
+            </tr>
+            <tr>
+                <td>身份证号和姓名（对应hitList中的idCard字段和faceName）</td>
+                <td><input type="text" name="SFZH">&nbsp;<input type="text" name="XM"></td>
+                <td>
+                    <button class="btn" onclick="handleSjSfzh()">随机生成</button>
+                </td>
+            </tr>
+            <tr>
+                <td>照片ID（body的hitList中的id）</td>
+                <td><input type="text" name="ZPID"></td>
+                <td>
+                    <button class="btn" id="sjzpid" onclick="handleZpId()">随机生成</button>
+                </td>
+            </tr>
+            <tr>
+                <td>轨迹ID（body的中外层的id）</td>
+                <td><input type="text" name="GJID"></td>
+                <td>
+                    <button class="btn" id="GJID" onclick="handleGjId()">随机生成</button>
+                </td>
+            </tr>
+            <tr>
+                <td>相似度（对应hitList中的score字段）</td>
+                <td><input type="text" name="SCORE"></td>
+                <td>
+                    <button class="btn" id="SCORE" onclick="getScoreRandom()">随机生成</button>
+                </td>
+            </tr>
+            <tr>
+                <td>预警时间（对应warnTime字段）</td>
+                <td><input type="text" name="WARNTIME"></td>
+                <td>
+                    <button class="btn" id="WARNTIME" onclick="getNowDate()">最新时间</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="result">
+                        <button class="btn" id="sc" onclick="ok()">生成数据</button>
+                        <button class="btn" id="sendQq" onclick="sendQq()" style="background-color: cyan">发送请求</button>
+                        <button class="btn" id="qk" onclick="cancle()">清空内容</button>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <div>
+            <div class="left">
+                <fieldset>
+                    <legend>示例数据</legend>
+                    <div>
+                        <textarea id="demoData" style="width: 100%;height: 100%;border: 1px solid #000" cols="20"
+                                  rows="20" readonly="readonly"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="right">
+                <fieldset>
+                    <legend>生成数据</legend>
+                    <textarea id="resultData" name="resultData" style="width: 100%;height: 100%;" cols="20"
+                              rows="20"></textarea>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

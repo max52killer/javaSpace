@@ -30,6 +30,7 @@
       </el-form-item>
     </el-form>
     <el-table
+      v-loading="loading"
       :data="userData"
       empty-text="还没有用户信息，注册一个吧"
       border
@@ -103,6 +104,7 @@
         console.log("请求后端的数据：：：", resp);
         if (resp) {
           this.userData = resp.data;
+          this.loading=false;
         }
       });
     },
@@ -134,7 +136,8 @@
           {code: "MW", codeName: "人妖"},
           {code: "WZ", codeName: "未知"},
         ],
-        currentPage4: 1
+        currentPage4: 1,
+        loading:true,
       };
     },
     methods: {

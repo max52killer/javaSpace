@@ -4,33 +4,31 @@
     <div id="particles-js"></div>
     <!-- //particles -->
     <div class="w3ls-pos">
-      <h1>快速登陆</h1>
+      <h1>Rest API 契约开发平台</h1>
       <div class="w3ls-login box">
-        <!-- form starts here -->
-        <!--<form action="#" method="post">-->
+
         <div class="login-form">
           <div class="agile-field-txt">
-            <input type="email" v-model="username" placeholder="用户名或邮箱" required="" autocomplete="off"/>
+            <label>
+              <i class="el-icon-user-solid"></i>
+              用户名：
+            </label>
+            <input type="text" v-model="username" placeholder="用户名，没有会自动注册哦" required="" autocomplete="off"/>
           </div>
           <div class="agile-field-txt">
-            <input type="password" v-model="password" placeholder="******" required="" id="myInput" autocomplete="off"/>
-            <div class="agile_label">
-              <!--<input id="check3" name="check3" type="checkbox" value="show password">-->
-              <!--<label class="check" for="check3">Remember me</label>-->
-              <el-link type="info" :underline="false">注：账号不存在会自动注册</el-link>
-            </div>
+            <label>
+              <i class="el-icon-unlock"></i>
+              密码：
+            </label>
+            <input type="password" v-model="password" placeholder="密码" required="" autocomplete="off"/>
           </div>
           <div class="w3ls-bot">
             <input type="submit" @click="handleLogin" value="登陆"/>
           </div>
         </div>
-        <!--</form>-->
       </div>
-      <!-- //form ends here -->
-      <!--copyright-->
       <div class="copy-wthree">
-        <p>© 2018 Particles Login Form. All Rights Reserved | Design by
-          <a href="http://w3layouts.com/" target="_blank">W3layouts</a>
+        <p>Copyright ©2019 厦门市巨龙信息科技有限公司 技术支持 建议使用1280*768及以上分辨率
         </p>
       </div>
       <!--//copyright-->

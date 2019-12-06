@@ -19,18 +19,16 @@ public class TSysCode implements Serializable{
     @GeneratedValue
     @Column(name="_id")
     private String _id;
-    @Column(name="code")
+    @Column(name="code",desc = "表码编号")
     private String code;
-    @Column(name="code_name")
+    @Column(name="code_name",desc = "表码名称")
     private String codeName;
-    @Column(name="type")
+    @Column(name="type",desc = "表码类型")
     private String type;
-    @Column(name="type_name")
+    @Column(name="type_name",desc = "类型中文描述")
     private String typeName;
-    @Column(name="no")
+    @Column(name="no",desc = "编号")
     private String no;
-    @Column(name="is_delete")
-    private String isDelete;
 
     public String get_id() {
         return _id;
@@ -78,13 +76,5 @@ public class TSysCode implements Serializable{
 
     public void setNo(String no) {
         this.no = no;
-    }
-
-    public String getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete;
     }
 }

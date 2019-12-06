@@ -14,4 +14,5 @@ public @interface Column {
     //行字段名称
     String name();
     int length() default 255;
+    String desc() default "";
 }

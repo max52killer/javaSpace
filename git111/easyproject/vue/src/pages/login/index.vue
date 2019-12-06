@@ -4,23 +4,22 @@
     <div id="particles-js"></div>
     <!-- //particles -->
     <div class="w3ls-pos">
-      <h1>Rest API 契约开发平台</h1>
+      <h1>{{$sysUtils.sysParam.title}}</h1>
       <div class="w3ls-login box">
-
         <div class="login-form">
           <div class="agile-field-txt">
             <label>
               <i class="el-icon-user-solid"></i>
               用户名：
             </label>
-            <input type="text" v-model="username" placeholder="用户名，没有会自动注册哦" required="" autocomplete="off"/>
+            <input type="text" v-model="username" placeholder="用户名，没有会自动注册哦" required="" @keyup.enter="handleLogin" autocomplete="off"/>
           </div>
           <div class="agile-field-txt">
             <label>
               <i class="el-icon-unlock"></i>
               密码：
             </label>
-            <input type="password" v-model="password" placeholder="密码" required="" autocomplete="off"/>
+            <input type="password" v-model="password" placeholder="密码" required="" @keyup.enter="handleLogin" autocomplete="off"/>
           </div>
           <div class="w3ls-bot">
             <input type="submit" @click="handleLogin" value="登陆"/>
@@ -28,7 +27,7 @@
         </div>
       </div>
       <div class="copy-wthree">
-        <p>Copyright ©2019 厦门市巨龙信息科技有限公司 技术支持 建议使用1280*768及以上分辨率
+        <p>{{$sysUtils.sysParam.copyright}}
         </p>
       </div>
       <!--//copyright-->
@@ -53,6 +52,11 @@
     watch: {},
     //引用其它组件注册
     components: {},
+
+    mounted() {
+      this.showCanvas();
+      $(".login-body").parent().parent().css({overflow:"hidden",margin:0});
+    },
     //定义组件中调用的函数
     methods: {
       handleLogin(){
@@ -68,107 +72,106 @@
         sessionStorage.setItem("auth_token","username="+this.username+"&&password="+this.password);
         this.$router.push('/');
         this.$message.success("登陆成功！");
-      }
-    },
-    mounted() {
-      /* ---- particles.js config ---- */
-      particlesJS("particles-js", {
-        "particles": {
-          "number": {
-            "value": 100,
-            "density": {
-              "enable": true,
-              "value_area":1000
-            }
-          },
-          "color": {
-            "value": ["#aa73ff", "#f8c210", "#83d238", "#33b1f8"]
-          },
-
-          "shape": {
-            "type": "circle",
-            "stroke": {
-              "width": 0,
-              "color": "#fff"
-            },
-            "polygon": {
-              "nb_sides": 5
-            },
-            "image": {
-              "src": "img/github.svg",
-              "width": 100,
-              "height": 100
-            }
-          },
-          "opacity": {
-            "value": 0.6,
-            "random": false,
-            "anim": {
-              "enable": false,
-              "speed": 1,
-              "opacity_min": 0.1,
-              "sync": false
-            }
-          },
-          "size": {
-            "value": 2,
-            "random": true,
-            "anim": {
-              "enable": false,
-              "speed": 40,
-              "size_min": 0.1,
-              "sync": false
-            }
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 120,
-            "color": "#ffffff",
-            "opacity": 0.4,
-            "width": 1
-          },
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "grab"
-            },
-            "onclick": {
-              "enable": false
-            },
-            "resize": true
-          },
-          "modes": {
-            "grab": {
-              "distance": 140,
-              "line_linked": {
-                "opacity": 1
+      },
+      showCanvas(){
+        /* ---- particles.js config ---- */
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 100,
+              "density": {
+                "enable": true,
+                "value_area":1000
               }
             },
-            "bubble": {
-              "distance": 400,
-              "size": 40,
-              "duration": 2,
-              "opacity": 8,
-              "speed": 3
+            "color": {
+              "value": ["#aa73ff", "#f8c210", "#83d238", "#33b1f8"]
             },
-            "repulse": {
-              "distance": 200,
-              "duration": 0.4
+
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#fff"
+              },
+              "polygon": {
+                "nb_sides": 5
+              },
+              "image": {
+                "src": "img/github.svg",
+                "width": 100,
+                "height": 100
+              }
             },
-            "push": {
-              "particles_nb": 4
+            "opacity": {
+              "value": 0.6,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
             },
-            "remove": {
-              "particles_nb": 2
+            "size": {
+              "value": 2,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 120,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": false
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 140,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
             }
-          }
-        },
-        "retina_detect": true
-      });
-      $(".login-body").parent().parent().css({overflow:"hidden"});
+          },
+          "retina_detect": true
+        });
+      }
     },
     destroyed() {
       $(".login-body").parent().parent().removeAttr("style");

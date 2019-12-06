@@ -2,6 +2,7 @@ package com.dragonsoft.EasyTest.mongodb.service.impl;
 
 import com.dragonsoft.EasyTest.mongodb.base.Result;
 import com.dragonsoft.EasyTest.mongodb.dao.TestDao;
+import com.dragonsoft.EasyTest.mongodb.enums.StatusCodeEnum;
 import com.dragonsoft.EasyTest.mongodb.po.Test;
 import com.dragonsoft.EasyTest.mongodb.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<Test> findByTitle(String title, String value) {
         return testDao.find(title,value);
+    }
+
+    @Override
+    public Result deleteByField(String name, String var) {
+        testDao.deleteByField(name,var);
+
+        return new Result(StatusCodeEnum.SUCCESS.getCode(),"删除成功！");
     }
 
     public String getUUID(){

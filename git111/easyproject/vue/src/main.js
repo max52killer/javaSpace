@@ -7,12 +7,15 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import sysUtils from './utils/sys-utils';
 //引入其它样式文件
 import './assets/css/style.css';
 import './assets/css/layout.css'
 
 Vue.use(ElementUI);
-Vue.prototype.$axios = axios    //全局注册，使用方法为:this.$axios
+Vue.prototype.$axios = axios;   //全局注册，使用方法为:this.$axios
+Vue.prototype.$sysUtils=sysUtils;
+
 
 Vue.config.productionTip = false;
 
@@ -22,4 +25,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});

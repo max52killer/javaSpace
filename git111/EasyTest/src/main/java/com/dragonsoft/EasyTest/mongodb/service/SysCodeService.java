@@ -8,4 +8,6 @@ import java.util.List;
 public interface SysCodeService {
     TSysCode save(TSysCode sysCode);
     List<TSysCode> queryList();
+
+    Result deleteByField(String title,String vals);
 }

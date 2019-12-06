@@ -76,16 +76,16 @@ public class WebController {
         //1、查询到所有表码
         List<TSysCode> sysCodes=sysCodeService.queryList();
         //2、循环所有表码进行归类  按照type的类型进行归类
-        Map<String,List<TSysCode>> sysCodeMap=new HashMap<>();
-        for(TSysCode code:sysCodes){
-            if(sysCodeMap.get(code)==null){
-                List<TSysCode> codes=new ArrayList<>();
-                codes.add(code);
-                sysCodeMap.put(code.getType(),codes);
-            }else{
-                sysCodeMap.get(code).add(code);
-            }
-        }
-        return new Result(StatusCodeEnum.SUCCESS.getCode(),"数据查询成功",sysCodeMap);
+//        Map<String,List<TSysCode>> sysCodeMap=new HashMap<>();
+//        for(TSysCode code:sysCodes){
+//            if(sysCodeMap.get(code)==null){
+//                List<TSysCode> codes=new ArrayList<>();
+//                codes.add(code);
+//                sysCodeMap.put(code.getType(),codes);
+//            }else{
+//                sysCodeMap.get(code).add(code);
+//            }
+//        }
+        return new Result(StatusCodeEnum.SUCCESS.getCode(),"表码查询成功",sysCodes);
     }
 }

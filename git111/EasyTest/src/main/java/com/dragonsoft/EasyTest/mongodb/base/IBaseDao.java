@@ -17,9 +17,12 @@ public interface IBaseDao<T> {
 
     Result deleteById(String var1);
 
+    void deleteByField(String name,String val);
+
     void saveOrUpdate(T var1);
 
     void delete(T var1);
+
 
     List<T> findAll();
 

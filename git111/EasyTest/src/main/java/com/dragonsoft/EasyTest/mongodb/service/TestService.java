@@ -12,4 +12,6 @@ public interface TestService {
     Test update(Test test);
     Result deleteById(String id);
     List<Test> findByTitle(String title,String value);
+
+    Result deleteByField(String name,String var);
 }

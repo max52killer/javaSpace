@@ -1,12 +1,12 @@
 <template>
   <div id="qb-footer" class="qb-footer">
-    © Copyright xxxxxxxxx. 2019
+    {{$sysUtils.sysParam.copyright}}
   </div>
 </template>
 
 <script>
     export default {
-        name: "footer",
+        name: "qb-footer",
         props: {},
         //设置当前全局使用的变量
         data() {

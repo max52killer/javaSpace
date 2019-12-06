@@ -2,7 +2,7 @@
   <div id="qb-head" class="qb-head-box">
     <el-row :gutter="20">
       <el-col :span="4" class="qb-head-title">
-        <span>示例演示</span>
+        <span>{{$sysUtils.sysParam.title}}</span>
       </el-col>
       <el-col :span="16">
         <el-menu

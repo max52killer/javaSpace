@@ -61,6 +61,11 @@ public class TestController {
     public List<Test> findByTitle(@RequestParam("title") String title,@RequestParam("value") String value){
         return testService.findByTitle(title,value);
     }
+    @ApiOperation(value = "删除指定字段的内容" ,  notes="删除指定字段的内容")
+    @PostMapping("/deleteByField")
+    public Result deleteByField(@RequestParam("title") String title,@RequestParam("value") String value){
+        return testService.deleteByField(title,value);
+    }
 
     @PostMapping("/upload.do")
     public Result upload(MultipartFile file){

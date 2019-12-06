@@ -244,6 +244,27 @@ public abstract class BaseDao<T>  extends DaoSupport implements IBaseDao<T>{
         }
     }
 
+    /**
+     * 删除指定字段名字对应的文档内容  删除多个字段
+     * @param name
+     * @param val
+     */
+    @Override
+    public void deleteByField(String name, String val) {
+        //1、获取class
+        Class c=this.clazz;
+        //2、获取class上面的文档注解的实体名字
+        boolean hasTable=c.isAnnotationPresent(Collect.class);
+        if(hasTable){
+            Collect collect= (Collect) c.getAnnotation(Collect.class);
+            String collectName= collect.name();
+            MongoCollection<Document> collection=getCollection(collectName);
+            collection.deleteMany(Filters.eq(name,val));
+        }else{
+            throw new MongoException("没有标明document名称!");
+        }
+    }
+
     @Override
     public void saveOrUpdate(T var1) {
 

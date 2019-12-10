@@ -304,8 +304,14 @@ public abstract class BaseDao<T>  extends DaoSupport implements IBaseDao<T>{
         return null;
     }
 
+    /**
+     * 根据指定字段的值查询所有的对应的数据
+     * @param var1
+     * @param var2
+     * @return
+     */
     @Override
-    public List find(String var1, Object var2) {
+    public List<T> find(String var1, Object var2) {
         //1、获取class
         Class c=this.clazz;
         //2、获取class上面的文档注解的实体名字

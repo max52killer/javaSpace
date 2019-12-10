@@ -7,10 +7,10 @@
           class="el-menu-vertical-demo"
           @select="handleSelect"
           align="center">
-          <el-menu-item v-for="bm in bmList" :index="bm.type" :key="bm.type">
+          <el-menu-item v-for="(bm,index) in showList" :index="bm.type" :key="bm.type">
             <span slot="title">{{bm.typeName}}({{bm.type}})</span>
           </el-menu-item>
-          <el-menu-item index="isEmp" v-if="bmList.length<=0">
+          <el-menu-item index="isEmp" v-if="showList.length<=0">
             <i class="el-icon-question" title="暂无表码"></i>
           </el-menu-item>
           <el-menu-item index="add">
@@ -20,7 +20,7 @@
       </el-col>
       <el-col :span="20">
         <not-page desc="暂无表码，点击下方“+”可新增表码" v-if="selectMenu==='isEmp'"></not-page>
-        <bm-list :bm-data="bmArr" v-if="selectMenu!='add'&&selectMenu!='isEmp'"></bm-list>
+        <bm-list ref="editor"></bm-list>
       </el-col>
     </el-row>
     <el-dialog title="添加表码" :visible.sync="dialogFormVisible">
@@ -49,9 +49,10 @@
     name: "index",
     props: {},
     created() {
-      this.initSelectMenu();
+
     },
     mounted() {
+      this.initSelectMenu();
     },
     //引用其它组件注册
     components: {bmEdit,bmList,notPage},
@@ -70,7 +71,12 @@
           typeName:"",
           no:"",
         },
-        rules:{}
+        rules:{},
+        showList:[],
+        mergeBmObj:{},
+        codeMap:{},
+        bmType:"",
+        bmTypeName:""
       };
     },
     methods: {
@@ -79,6 +85,7 @@
           console.log("后端提取的表码数据：",resp);
           if(resp&&resp.data){
             this.bmList=resp.data.object;
+            this.handleBmList();
             if(index){
               this.selectMenu=index;
             }else{
@@ -88,6 +95,10 @@
                 this.selectMenu="isEmp";
               }
             }
+            this.bmType=index?index:this.selectMenu;
+            let name=this.codeMap[this.selectMenu];
+            this.bmTypeName=name?name:this.bmList[0].typeName;
+            this.$refs.editor.load(this.bmType,this.bmTypeName);
           }
         });
       },
@@ -96,6 +107,10 @@
         this.selectMenu=index;
         if(index==='add'){
           this.dialogFormVisible=true;
+        }else{
+          this.bmType=index;
+          this.bmTypeName=this.codeMap[index];
+          this.$refs.editor.load(this.bmType,this.bmTypeName);
         }
       },
       handleFromSubmit(){
@@ -118,7 +133,27 @@
           }
         });
         this.dialogFormVisible = false;
-      }
+      },
+      handleBmList(){
+        let dataList=[];
+        let obj={};
+        let typeObj={};
+        this.bmList.forEach((item,index)=>{
+          if(!obj[item.type]){
+            this.$set(obj,item.type,[item]);
+            this.$set(typeObj,item.type,item.typeName);
+          }else{
+            obj[item.type].push(item);
+          }
+        });
+        this.mergeBmObj=obj;
+        this.codeMap=typeObj;
+        console.log("map::",this.codeMap);
+        for(let key in obj){
+          dataList.push({type:key,typeName:typeObj[key],list:obj[key]});
+        }
+        this.showList=dataList;
+      },
     },
     computed: {},
     watch: {},

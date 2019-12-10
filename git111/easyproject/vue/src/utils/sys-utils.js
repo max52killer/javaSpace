@@ -36,6 +36,31 @@ let api={
     projectname:/^[a-zA-Z0-9\u4e00-\u9fa5._-]+$/,//项目名  可由中文、英文、数字、点、下划线、减号组成
     version:/^[a-zA-Z0-9._-]+$/,//版本号  可由英文、数字、点、下划线、减号组成
     servicename:/^[a-zA-Z0-9_-]+$/,//服务名称  可由英文、数字、下划线、减号组成
-  }
+  },
+  isEmpty(obj) {
+    try {
+      if (window.$t.fun.isFunction(obj)) return false;
+      if (obj === undefined) return true;
+      if (obj === null) return true;
+      if (obj.length === 0) return true;
+      if (obj === "") return true;
+      if (obj === "undefined") return true;
+      if(obj==={}) return true;
+      if (window.$t.string.trim(obj) === "null") return true;
+      if (window.$t.string.trim(obj) === "NULL") return true;
+      if (window.$t.string.trim(obj) === "") return true;
+      if (obj.toString() === null) return true;
+      if (obj.toString().length === 0) return true;
+      if (window.$t.object.isObject(obj)) {
+        for (var p in obj) {
+          return false;
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  },
 };
 export default api;

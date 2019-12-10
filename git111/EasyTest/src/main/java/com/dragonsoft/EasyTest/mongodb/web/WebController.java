@@ -12,6 +12,7 @@ import com.dragonsoft.EasyTest.mongodb.po.Test;
 import com.dragonsoft.EasyTest.mongodb.service.PersonService;
 import com.dragonsoft.EasyTest.mongodb.service.SysCodeService;
 import com.dragonsoft.EasyTest.mongodb.service.UserService;
+import com.dragonsoft.EasyTest.mongodb.vo.BmUpdVo;
 import com.dragonsoft.EasyTest.util.FileUtils;
 import com.dragonsoft.EasyTest.util.json.JsonFileUtils;
 import com.google.gson.JsonArray;
@@ -65,6 +66,7 @@ public class WebController {
         return userService.queryList();
     }
 
+    //处理表码
     @ApiOperation(value = "保存表码信息数据" ,  notes="保存表码信息数据")
     @PostMapping("/saveBm")
     public TSysCode saveBm(@RequestBody TSysCode code){
@@ -87,5 +89,24 @@ public class WebController {
 //            }
 //        }
         return new Result(StatusCodeEnum.SUCCESS.getCode(),"表码查询成功",sysCodes);
+    }
+    @ApiOperation(value = "更新表码信息数据" ,  notes="更新表码信息数据")
+    @PostMapping("/updateBm")
+    public Result updateBm(@RequestBody BmUpdVo updVo){
+
+        //1、先将之前的表码数据删除
+        sysCodeService.deleteByField("type",updVo.getType());
+        List<TSysCode> results=new ArrayList<>();
+        //2、再将新的数据插入
+        for(TSysCode sysCode:updVo.getSysCodes()){
+            sysCodeService.save(sysCode);
+            results.add(sysCode);
+        }
+        return new Result(StatusCodeEnum.SUCCESS.getCode(),"更新成功",results);
+    }
+    @ApiOperation(value = "获取指定表码的数据" ,  notes="获取指定表码的数据")
+    @GetMapping("/getByType/{type}")
+    public List<TSysCode> getByType(@PathVariable(name="type") String type){
+        return sysCodeService.getByType(type);
     }
 }

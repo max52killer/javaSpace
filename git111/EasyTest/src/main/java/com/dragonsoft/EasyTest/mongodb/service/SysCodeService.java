@@ -6,8 +6,10 @@ import com.dragonsoft.EasyTest.mongodb.po.TSysCode;
 import java.util.List;
 
 public interface SysCodeService {
+    List<TSysCode> getByType(String type);
+
     TSysCode save(TSysCode sysCode);
     List<TSysCode> queryList();
 
-    Result deleteByField(String title,String vals);
+    void deleteByField(String title,String vals);
 }

@@ -28,7 +28,7 @@ public interface IBaseDao<T> {
 
     List find(String var1);
 
-    List find(String var1, Object var2);
+    List<T> find(String var1, Object var2);
 
     List find(String var1, Object[] var2);
 

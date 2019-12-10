@@ -19,6 +19,12 @@ import java.util.List;
 public class SysCodeServiceImpl implements SysCodeService {
     @Autowired
     private SysCodeDao sysCodeDao;
+
+    @Override
+    public List<TSysCode> getByType(String type) {
+        return sysCodeDao.find("type",type);
+    }
+
     @Override
     public TSysCode save(TSysCode sysCode) {
         return sysCodeDao.save(sysCode);
@@ -27,5 +33,10 @@ public class SysCodeServiceImpl implements SysCodeService {
     @Override
     public List<TSysCode> queryList() {
         return sysCodeDao.findAll();
+    }
+
+    @Override
+    public void deleteByField(String title, String vals) {
+        sysCodeDao.deleteByField(title,vals);
     }
 }

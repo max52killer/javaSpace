@@ -25,7 +25,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="排序编号">
+            label="排序编号" sortable>
             <template slot-scope="scope">
               <el-input v-model="scope.row.no" placeholder="请输入排序编号" size="mini"></el-input>
             </template>

@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
+import axios from 'axios';
+import VueWorker from 'vue-worker';
 // import qs from 'qs.js'
 import {codemirror} from 'vue-codemirror-lite'
 import $ from './assets/js/jquery_vendor'
@@ -19,8 +20,10 @@ import store from './store/index'
 
 var VueCodeMirror = require('vue-codemirror-lite')
 Vue.use(ElementUI);
-Vue.prototype.$axios = axios    //全局注册，使用方法为:this.$axios
+Vue.prototype.$axios = axios;   //全局注册，使用方法为:this.$axios
 // Vue.prototype.qs = qs           //全局注册，使用方法为:this.qs
+Vue.use(VueWorker);     //全局注册 this.$worker
+
 
 Vue.config.productionTip = false
 

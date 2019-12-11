@@ -7,7 +7,7 @@
       <el-form-item label="单位：">
         <el-select size="mini" v-model="condition.dept" placeholder="请选择用户部门" clearable>
           <el-option
-            v-for="item in BM_DEPT"
+            v-for="item in $bm.list('BM_DEPT')"
             :key="item.code"
             :label="item.codeName"
             :value="item.code">
@@ -17,7 +17,7 @@
       <el-form-item label="性别：">
         <el-select size="mini" v-model="condition.sex" placeholder="请选择性别" clearable>
           <el-option
-            v-for="item in BM_SEX"
+            v-for="item in $bm.list('BM_XB0000')"
             :key="item.code"
             :label="item.codeName"
             :value="item.code">
@@ -25,7 +25,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button size="mini" type="warning" @click="handleRegister"><i class="el-icon-s-check"></i>&nbsp;注册用户
+        <el-button size="mini" type="warning" @click="handleRegister">
+          <i class="el-icon-s-check"></i>&nbsp;注册用户
         </el-button>
       </el-form-item>
     </el-form>

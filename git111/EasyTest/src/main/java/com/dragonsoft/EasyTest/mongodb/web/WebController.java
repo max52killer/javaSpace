@@ -1,34 +1,22 @@
 package com.dragonsoft.EasyTest.mongodb.web;
 
-import com.alibaba.fastjson.JSON;
-import com.dragonsoft.EasyTest.mongodb.TestVo;
 import com.dragonsoft.EasyTest.mongodb.base.Result;
-import com.dragonsoft.EasyTest.mongodb.dao.SysCodeDao;
 import com.dragonsoft.EasyTest.mongodb.enums.StatusCodeEnum;
 import com.dragonsoft.EasyTest.mongodb.po.Person;
 import com.dragonsoft.EasyTest.mongodb.po.TSysCode;
 import com.dragonsoft.EasyTest.mongodb.po.TUser;
-import com.dragonsoft.EasyTest.mongodb.po.Test;
 import com.dragonsoft.EasyTest.mongodb.service.PersonService;
 import com.dragonsoft.EasyTest.mongodb.service.SysCodeService;
 import com.dragonsoft.EasyTest.mongodb.service.UserService;
 import com.dragonsoft.EasyTest.mongodb.vo.BmUpdVo;
-import com.dragonsoft.EasyTest.util.FileUtils;
-import com.dragonsoft.EasyTest.util.json.JsonFileUtils;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: EasyTest
@@ -55,6 +43,7 @@ public class WebController {
         return personService.save(person);
     }
 
+    //处理用户信息
     @ApiOperation(value = "保存用户信息数据" ,  notes="保存用户信息数据")
     @PostMapping("/saveUser.do")
     public TUser saveUser(@RequestBody TUser user){

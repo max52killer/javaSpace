@@ -83,10 +83,9 @@
     },
     mounted: function () {
       this.showCavas();
-      $("#login-body").parent().parent("body").css({"overflow-y": " hidden"})
     },
     destroyed: function () {
-      $("#login-body").parent().parent("body").removeAttr("style");
+
     },
     methods: {
       ...mapMutations(['changeLogin']),

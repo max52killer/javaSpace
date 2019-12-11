@@ -20,7 +20,7 @@ const qrj01 = () => import("@/components/qrj/qrj01.vue");
 const pxdw = () => import("@/components/pxdw/pxdw.vue");
 const ele_container = () => import("@/components/element-ui/ele_container.vue");
 const login = () => import("@/components/login/login.vue");
-const demo=() => import("@/components/demo/demo.vue");
+const demo=() => import("@/components/demo/index.vue");
 
 
 Vue.use(Router);

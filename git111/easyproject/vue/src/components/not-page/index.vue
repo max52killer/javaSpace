@@ -2,7 +2,6 @@
   <div id="not-page" class="not-page">
     <i class="el-icon-question"></i>
     <p>{{desc}}</p>
-    <el-drawer></el-drawer>
   </div>
 </template>
 

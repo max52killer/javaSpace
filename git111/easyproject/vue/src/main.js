@@ -19,7 +19,7 @@ Vue.use(ElementUI);
 Vue.prototype.$axios = axios;   //全局注册，使用方法为:this.$axios
 Vue.prototype.$sysUtils=sysUtils;
 Vue.prototype.$t=utils;
-Vue.prototype.$bm=bmLoader;
+Vue.prototype.$bm=bmLoader;//将表码对象注册到全局 可使用$bm的形式调用其中的方法
 
 
 Vue.config.productionTip = false;

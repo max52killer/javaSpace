@@ -8,7 +8,7 @@
           @select="handleSelect"
           align="center">
           <el-menu-item v-for="(bm,index) in showList" :index="bm.type" :key="bm.type">
-            <span slot="title">{{bm.typeName}}({{bm.type}})</span>
+            <span slot="title">{{bm.typeName}}({{bm.type}})<i class="el-icon-delete el-icon--right" title="删除表码" @click="handleBmDel(bm)"></i></span>
           </el-menu-item>
           <el-menu-item index="isEmp" v-if="showList.length<=0">
             <i class="el-icon-question" title="暂无表码"></i>
@@ -19,12 +19,12 @@
         </el-menu>
       </el-col>
       <el-col :span="20">
-        <not-page desc="暂无表码，点击下方“+”可新增表码" v-if="selectMenu==='isEmp'"></not-page>
+        <not-page desc="暂无表码，点击“+”可新增表码" v-if="selectMenu==='isEmp'"></not-page>
         <bm-list ref="editor"></bm-list>
       </el-col>
     </el-row>
     <el-dialog title="添加表码" :visible.sync="dialogFormVisible">
-      <el-form :model="bmForm" align="center" :rules="rules">
+      <el-form :model="bmForm" ref="bmForm" align="center" :rules="rules">
         <el-form-item label="表码类型：" label-width="120px">
           <el-input v-model="bmForm.type" autocomplete="off"></el-input>
         </el-form-item>
@@ -130,6 +130,7 @@
             console.log("保存返回：",resp);
             this.$message.success("保存成功！");
             this.initSelectMenu(this.bmForm.type);
+            this.$refs.bmForm.resetFields();
           }
         });
         this.dialogFormVisible = false;
@@ -148,12 +149,27 @@
         });
         this.mergeBmObj=obj;
         this.codeMap=typeObj;
-        console.log("map::",this.codeMap);
         for(let key in obj){
           dataList.push({type:key,typeName:typeObj[key],list:obj[key]});
         }
         this.showList=dataList;
       },
+      handleBmDel(bm){
+        this.$confirm('确定删除('+bm.typeName+'【'+bm.type+'】)?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(resp=>{
+          //点击确定后执行
+          console.log("删除表码：",bm);
+          bmCodeApi.deleteBm(bm.type).then(resp=>{
+            if(resp){
+              this.$message.success("表码删除成功");
+              this.initSelectMenu();
+            }
+          });
+        }).catch(()=>{});
+      }
     },
     computed: {},
     watch: {},

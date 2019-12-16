@@ -45,6 +45,14 @@ let api={
       }
     });
   },
+  //删除指定的表码
+  deleteBm:function (data) {
+    return axios.get(`/api/delByType/`+data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      }
+    });
+  }
 };
 
 export default api;

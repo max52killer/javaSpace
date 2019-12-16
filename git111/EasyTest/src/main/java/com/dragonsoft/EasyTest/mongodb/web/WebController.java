@@ -98,4 +98,11 @@ public class WebController {
     public List<TSysCode> getByType(@PathVariable(name="type") String type){
         return sysCodeService.getByType(type);
     }
+
+    @ApiOperation(value = "删除指定表码的数据" ,  notes="删除指定表码的数据")
+    @GetMapping("/delByType/{type}")
+    public Result delByType(@PathVariable(name="type") String type){
+        sysCodeService.deleteByField("type",type);
+        return new Result(StatusCodeEnum.SUCCESS.getCode(),"删除成功");
+    }
 }

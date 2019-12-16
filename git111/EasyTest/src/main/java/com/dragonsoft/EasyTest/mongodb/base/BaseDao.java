@@ -353,6 +353,9 @@ public abstract class BaseDao<T>  extends DaoSupport implements IBaseDao<T>{
         if(AutoGenerateType.UUID.getCode().equalsIgnoreCase(type)){
             result= UUID.randomUUID().toString().replace("-","");
         }
+        if(AutoGenerateType.RANDOM_NUM.getCode().equalsIgnoreCase(type)){
+//            result=Math.random();
+        }
 
         return result;
     }

@@ -2,10 +2,13 @@
   <div id="not-page" class="not-page">
     <i class="el-icon-question"></i>
     <p>{{desc}}</p>
+    <el-drawer></el-drawer>
   </div>
 </template>
 
 <script>
+    import ElDrawer from "element-ui/packages/drawer/src/main";
+
     export default {
         name: "not-page",
         props: {
@@ -14,7 +17,7 @@
         computed: {},
         watch: {},
         //引用其它组件注册
-        components: {},
+        components: {ElDrawer},
         created() {
         },
         mounted() {

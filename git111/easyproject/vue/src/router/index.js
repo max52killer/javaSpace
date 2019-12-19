@@ -25,6 +25,17 @@ let routeData = [
         }
       },
       {
+        path:"/user-edit",
+        name:"userEdit",
+        component:resolve => require(['../pages/system-manage/yhgl/edit/index.vue'], resolve),
+        meta:{
+          title:"用户信息",
+          hide:true,
+          icon:"el-icon-s-ticket",
+          description:"在此处你可以编辑用户信息"
+        }
+      },
+      {
         path:"/api_documents",
         name:"api_documents",
         component:resolve => require(['../pages/api-documents/index.vue'], resolve),

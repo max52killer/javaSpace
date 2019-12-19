@@ -1,6 +1,7 @@
 package com.dragonsoft.EasyTest.mongodb.web;
 
 import com.alibaba.fastjson.JSON;
+import com.dragonsoft.EasyTest.mongodb.TestVo;
 import com.dragonsoft.EasyTest.mongodb.base.Result;
 import com.dragonsoft.EasyTest.mongodb.enums.StatusCodeEnum;
 import com.dragonsoft.EasyTest.mongodb.po.Person;
@@ -19,14 +20,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-@Api(description = "测试接口")
+@Api(description = "测试mongodb接口")
 @RestController
 @CrossOrigin
+@RequestMapping("/test")
 public class TestController {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -85,5 +88,17 @@ public class TestController {
             e.printStackTrace();
         }
         return result;
+    }
+    @ApiOperation(value = "GET请求带参数" ,  notes="GET请求带参数")
+    @PostMapping("/activity")
+    public Result getActivity(@RequestBody TestVo testVo,@RequestParam("pageNo") String pageNo,@RequestParam("pageNum") String pageNum){
+        Map<String,Object> result=new HashMap<>();
+        System.out.println("请求参数testVo："+testVo.toString());
+        result.put("testVo:",testVo);
+        System.out.println("请求参数pageNo："+pageNo);
+        result.put("pageNo:",pageNo);
+        System.out.println("请求参数pageNum："+pageNum);
+        result.put("pageNum:",pageNum);
+        return new Result(StatusCodeEnum.SUCCESS.getCode(),"查询成功！",result);
     }
 }

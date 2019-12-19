@@ -24,7 +24,7 @@ import java.util.List;
  * @author: songzm
  * @create: 2019-12-04 13:23
  **/
-@Api(description = "测试接口")
+@Api(description = "全部接口")
 @RestController
 @CrossOrigin
 public class WebController {
@@ -42,19 +42,6 @@ public class WebController {
     public Person savePerson(@RequestBody Person person){
         return personService.save(person);
     }
-
-    //处理用户信息
-    @ApiOperation(value = "保存用户信息数据" ,  notes="保存用户信息数据")
-    @PostMapping("/saveUser.do")
-    public TUser saveUser(@RequestBody TUser user){
-        return userService.save(user);
-    }
-    @ApiOperation(value = "查询用户所有信息" ,  notes="查询用户所有信息")
-    @GetMapping("/queryUserList.do")
-    public List<TUser> queryUserList(){
-        return userService.queryList();
-    }
-
     //处理表码
     @ApiOperation(value = "保存表码信息数据" ,  notes="保存表码信息数据")
     @PostMapping("/saveBm")
@@ -66,17 +53,6 @@ public class WebController {
     public Result queryBmList(){
         //1、查询到所有表码
         List<TSysCode> sysCodes=sysCodeService.queryList();
-        //2、循环所有表码进行归类  按照type的类型进行归类
-//        Map<String,List<TSysCode>> sysCodeMap=new HashMap<>();
-//        for(TSysCode code:sysCodes){
-//            if(sysCodeMap.get(code)==null){
-//                List<TSysCode> codes=new ArrayList<>();
-//                codes.add(code);
-//                sysCodeMap.put(code.getType(),codes);
-//            }else{
-//                sysCodeMap.get(code).add(code);
-//            }
-//        }
         return new Result(StatusCodeEnum.SUCCESS.getCode(),"表码查询成功",sysCodes);
     }
     @ApiOperation(value = "更新表码信息数据" ,  notes="更新表码信息数据")

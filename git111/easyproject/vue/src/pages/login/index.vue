@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  import userApi from "../../api/userApi";
   export default {
     name: "login",
     props: {},
@@ -68,10 +69,31 @@
           this.$message.warning("密码不能为空！");
           return false;
         }
-        //用户输入之后将其写入session
-        sessionStorage.setItem("auth_token","username="+this.username+"&&password="+this.password);
-        this.$router.push('/');
-        this.$message.success("登陆成功！");
+        let loginForm={username:this.username,password:this.password};
+        userApi.login(loginForm).then(resp=>{
+          if(resp.data.code==='200'){
+            //用户输入之后将其写入session
+            sessionStorage.setItem("auth_token","username="+this.username+"&&password="+this.password);
+            this.$router.push('/');
+            this.$message.success("登陆成功！");
+          }else if(resp.data.code==='500'){
+            this.$confirm('用户不存在，是否自动创建?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(()=>{
+              userApi.save(loginForm).then(resp1=>{
+                if(resp1.data){
+                  sessionStorage.setItem("auth_token","username="+this.username+"&&password="+this.password);
+                  this.$router.push('/');
+                  this.$message.success("自动创建，登陆成功！");
+                }
+              });
+            });
+          }else{
+            this.$message.success("查询异常！");
+          }
+        });
       },
       showCanvas(){
         /* ---- particles.js config ---- */

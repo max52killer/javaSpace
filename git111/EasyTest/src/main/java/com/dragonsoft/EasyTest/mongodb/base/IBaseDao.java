@@ -32,5 +32,7 @@ public interface IBaseDao<T> {
 
     List find(String var1, Object[] var2);
 
+    List<T> find(List<String> params,List<String> vals);
+
     void initialize(T var1);
 }

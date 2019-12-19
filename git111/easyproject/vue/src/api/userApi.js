@@ -10,7 +10,7 @@ let api={
    * @returns {Promise<AxiosResponse<T>>}
    */
   queryList(){
-    return axios.get(`/api/queryUserList.do`, {
+    return axios.get(`/api/user/queryUserList.do`, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       }
@@ -20,9 +20,45 @@ let api={
    * 新增数据
    */
   save: function (data) {
-    return axios.post(`/api/saveUser.do`, data,{
+    return axios.post(`/api/user/saveUser.do`, data,{
       headers: {
         'Content-Type': 'application/json'
+      }
+    });
+  },
+  /**
+   * 登陆
+   * @param data
+   * @returns {Promise<AxiosResponse<T>>}
+   */
+  login:function (data) {
+    return axios.post(`/api/user/loginUser.do`, data,{
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  },
+  /**
+   * 单个用户信息修改
+   * @param data
+   * @returns {Promise<AxiosResponse<T>>}
+   */
+  update:function (data) {
+    return axios.post(`/api/updateUser.do`, data,{
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  },
+  /**
+   * 删除指定id的用户
+   * @param id
+   * @returns {Promise<AxiosResponse<T>>}
+   */
+  delUser:function (id) {
+    return axios.get(`/api/delUserById.do/`+id, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       }
     });
   },

@@ -14,8 +14,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.DeleteResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.beans.PropertyDescriptor;
@@ -336,6 +336,41 @@ public abstract class BaseDao<T>  extends DaoSupport implements IBaseDao<T>{
     @Override
     public List find(String var1, Object[] var2) {
         return null;
+    }
+
+    /**
+     * 多条件查询   只支持and拼接 以及eq的条件 其中查询条件字段全部写在params集合里面   vals填写对应的值  两者个数和位置一一对应
+     * @param params 字段名称
+     * @param vals  值
+     * @return
+     */
+    @Override
+    public List<T> find(List<String> params, List<String> vals) {
+        //1、获取class
+        Class c=this.clazz;
+        //2、获取class上面的文档注解的实体名字
+        boolean hasTable=c.isAnnotationPresent(Collect.class);
+        if(!hasTable){
+            return null;
+        }
+        Collect collect= (Collect) c.getAnnotation(Collect.class);
+        String collectName= collect.name();
+        MongoCollection<Document> collection=getCollection(collectName);
+        List<Bson> bsons=new ArrayList<>();
+        //构造查询条件
+        for(int i=0;i<params.size();i++){
+            bsons.add(Filters.eq(params.get(i),vals.get(i)));
+        }
+        Bson condition=Filters.and(bsons);
+        FindIterable<Document> findIterable = collection.find(condition);
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+        List<T> lists=new ArrayList<>();
+        while(mongoCursor.hasNext()){
+            Document document=mongoCursor.next();
+            T t=JSON.parseObject(document.toJson(),clazz);
+            lists.add(t);
+        }
+        return lists;
     }
 
     @Override

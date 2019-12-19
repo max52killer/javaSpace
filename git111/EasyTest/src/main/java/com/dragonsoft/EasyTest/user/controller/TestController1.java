@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 /**
  * Create by zhangkang 2019/03/05 15:29
  */
-@Api(description = "测试接口")
+@Api(description = "测试接口190305")
 @RestController
 @CrossOrigin
 public class TestController1 {

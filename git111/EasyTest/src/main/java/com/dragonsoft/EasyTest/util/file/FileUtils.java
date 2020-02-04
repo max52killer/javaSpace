@@ -1,4 +1,4 @@
-package com.dragonsoft.EasyTest.util;
+package com.dragonsoft.EasyTest.util.file;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

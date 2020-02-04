@@ -24,8 +24,10 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-
-
+    /**
+     * 全局存储当前登陆用户
+     */
+    private TUser currentUser;
     @Override
     public TUser save(TUser user) {
         return userDao.save(user);
@@ -45,6 +47,10 @@ public class UserServiceImpl implements UserService {
         vals.add(user.getUsername());
         vals.add(user.getPassword());
         List<TUser> users=userDao.find(params,vals);
+        List<TUser> userList=userDao.find("username",user.getUsername());
+        if(userList.size()>0&&users.size()<=0){
+            return new Result(StatusCodeEnum.FAIL.getCode(),"登陆失败",userList);
+        }
         if(users.size()<=0){
             return new Result(StatusCodeEnum.ERROR.getCode(),"查询无结果");
         }
@@ -53,6 +59,7 @@ public class UserServiceImpl implements UserService {
         }
         Map<String,Object> res=new HashMap<>();
         res.put("users",users);
+        this.currentUser=users.get(0);
         res.put("token",TokenProccessor.getInstance().makeToken());
         return new Result(StatusCodeEnum.SUCCESS.getCode(),"查询成功",res);
     }
@@ -60,5 +67,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result deleteById( String val) {
         return userDao.deleteById(val);
+    }
+
+    @Override
+    public Result current() {
+        if(this.currentUser!=null){
+            return new Result(StatusCodeEnum.SUCCESS.getCode(),"当前用户查询成功",currentUser);
+        }else{
+            return new Result(StatusCodeEnum.WARNING.getCode(),"用户信息获取异常");
+        }
     }
 }

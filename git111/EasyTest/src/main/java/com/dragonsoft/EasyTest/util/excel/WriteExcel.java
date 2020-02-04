@@ -1,11 +1,15 @@
 package com.dragonsoft.EasyTest.util.excel;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class WriteExcel {
@@ -110,6 +114,52 @@ public class WriteExcel {
                 e.printStackTrace();
             }
         }
+    }
+    /**
+     * excel生成
+     * @param datas 需要导出的数据对象集合
+     * @param sheetName 表格tab名称
+     * @param exportMap 导出字段映射map
+     * @param <T>
+     * @return
+     */
+    public static <T> Workbook  genExcel(List<T> datas, String sheetName, String exportMap){
+        //1、创建工作簿
+        Workbook wb = new HSSFWorkbook();
+        //2、创建 Sheet 页
+        Sheet sheet = wb.createSheet(sheetName);
+        //3、创建表头（提取第一行表头的数据  使用映射map中的对象的字段字段name作为作为表头）
+        Row row0 = sheet.createRow(0);
+        Map<String,String> objMap= JSON.parseObject(exportMap,Map.class);
+        int tt=0;
+        for(String key:objMap.keySet()){
+            Cell cell0 = row0.createCell(tt);
+            cell0.setCellValue(objMap.get(key));
+            tt++;
+        }
+        int rr=1;
+        for(T clz:datas){
+            Row row=sheet.createRow(rr);
+            Class clazz=clz.getClass();
+            int cc=0;
+            for(String key:objMap.keySet()){
+                try {
+                    Field field=clazz.getDeclaredField(key);
+                    PropertyDescriptor pd=new PropertyDescriptor(field.getName(),clazz);
+                    Method method=pd.getReadMethod();
+                    //执行get方法
+                    String val=(String) method.invoke(clz);
+                    Cell cell = row.createCell(cc);
+                    cell.setCellValue(val);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                cc++;
+            }
+            rr++;
+        }
+        //4、创建内容
+        return wb;
     }
 
     public static void main(String[] args) {

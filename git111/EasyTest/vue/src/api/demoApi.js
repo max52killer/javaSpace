@@ -26,7 +26,7 @@ let api={
     //组装请求参数，并返回请求实例
     let formData = new FormData();
     formData.append("file", file);
-    return axios.post(`${mp}/upload.do`, formData, {
+    return axios.post(`http://127.0.0.1:8888/test/upload.do`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

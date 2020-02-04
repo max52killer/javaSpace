@@ -11,4 +11,6 @@ public interface UserService {
     List<TUser> queryList();
     Result login(TUser user);
     Result deleteById(String val);
+
+    Result current();
 }

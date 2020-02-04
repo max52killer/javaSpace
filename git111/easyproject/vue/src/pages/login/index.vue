@@ -21,6 +21,22 @@
             </label>
             <input type="password" v-model="password" placeholder="密码" required="" @keyup.enter="handleLogin" autocomplete="off"/>
           </div>
+          <div class="agile-field-txt">
+            <label>
+              <i class="el-icon-unlock"></i>
+              验证码：
+            </label>
+            <el-row>
+              <el-col :span="12">
+                <input type="text" v-model="validateCode" placeholder="验证码" required="" @keyup.enter="handleLogin" autocomplete="off"/>
+              </el-col>
+              <el-col :span="12">
+                <div class="login-validate" @click="refreshCode()">
+                  <identity :identifyCode="identifyCode"></identity>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
           <div class="w3ls-bot">
             <input type="submit" @click="handleLogin" value="登陆"/>
           </div>
@@ -37,22 +53,27 @@
 
 <script>
   import userApi from "../../api/userApi";
+  import identity from "@/components/identity/index";//验证码组件
   export default {
     name: "login",
     props: {},
     created() {
+      this.refreshCode();
     },
     //设置当前全局使用的变量
     data() {
       return {
         username:"",
-        password:""
+        password:"",
+        identifyCode:"",
+        validateCode:"",
+        identifyCodes: "0123456789abcdefghijklmnopqrstuvwxyzJKDHRJHKOOPLMKQ",//随便打的
       };
     },
     computed: {},
     watch: {},
     //引用其它组件注册
-    components: {},
+    components: {identity},
 
     mounted() {
       this.showCanvas();
@@ -69,6 +90,16 @@
           this.$message.warning("密码不能为空！");
           return false;
         }
+        if(this.validateCode.trim()===""){
+          this.$message.warning("验证码不能为空！");
+          return false;
+        }
+        if(this.validateCode&&this.validateCode!==this.identifyCode){
+          this.$message.warning("验证码输入不正确！");
+          return false;
+        }
+        //刷新一下验证码
+        this.refreshCode();
         let loginForm={username:this.username,password:this.password};
         userApi.login(loginForm).then(resp=>{
           if(resp.data.code==='200'){
@@ -76,7 +107,9 @@
             sessionStorage.setItem("auth_token","username="+this.username+"&&password="+this.password);
             this.$router.push('/');
             this.$message.success("登陆成功！");
-          }else if(resp.data.code==='500'){
+          }else if(resp.data.code==='400'){
+            this.$message.error("登陆失败，用户名或密码错误！");
+          } else if(resp.data.code==='500'){
             this.$confirm('用户不存在，是否自动创建?', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
@@ -94,6 +127,21 @@
             this.$message.success("查询异常！");
           }
         });
+      },
+      refreshCode() {//
+        this.identifyCode = "";
+        this.makeCode(this.identifyCodes, 4);
+      },
+      randomNum(min, max) {
+        max = max + 1;
+        return Math.floor(Math.random() * (max - min) + min)
+      },
+      // 随机生成验证码字符串
+      makeCode(data, len) {
+        for (let i = 0; i < len; i++) {
+          this.identifyCode += data[this.randomNum(0, data.length - 1)]
+        }
+        console.log("验证码：",this.identifyCode);
       },
       showCanvas(){
         /* ---- particles.js config ---- */
@@ -202,6 +250,17 @@
 </script>
 
 <style scoped>
+  .login-validate{
+    outline: none;
+    letter-spacing: 0.5px;
+    padding: 4px;
+    box-sizing: border-box;
+    border: none;
+    -webkit-appearance: none;
+    font-family: 'Open Sans', sans-serif;
+    margin-left: 10px;
+    line-height: 13px;
+  }
   /*.login-body{*/
     /*width: 100%;*/
     /*height: 100%;*/

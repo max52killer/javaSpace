@@ -10,7 +10,7 @@
           :http-request="uploadFile"
           :show-file-list="true"
           :limit="1"
-          accept=".json"
+          accept=".xls;.xlsx"
         >
           <el-button size="mini" type="primary">点击上传<i class="el-icon-upload el-icon--right"></i></el-button>
         </el-upload>
@@ -43,14 +43,14 @@
       uploadFile(param) {
         let file = param.file;
         let size = file.size;
-        if (size > 5 * 1024 * 1024) {
-          this.$message({message: "文件上传失败，最大支持上传5M的文件", type: "warning"});
-          return false;
-        }
-        if (!/\.(json)$/.test(file.name)) {
-          this.$message({message: "文件上传失败，仅支持上传json格式的文件", type: "warning"});
-          return false;
-        }
+//        if (size > 5 * 1024 * 1024) {
+//          this.$message({message: "文件上传失败，最大支持上传5M的文件", type: "warning"});
+//          return false;
+//        }
+//        if (!/\.(json)$/.test(file.name)) {
+//          this.$message({message: "文件上传失败，仅支持上传json格式的文件", type: "warning"});
+//          return false;
+//        }
         demoApi.upload(file).then(resp=>{
           console.log(resp);
           if(resp){

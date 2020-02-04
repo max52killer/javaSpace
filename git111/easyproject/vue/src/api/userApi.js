@@ -44,7 +44,7 @@ let api={
    * @returns {Promise<AxiosResponse<T>>}
    */
   update:function (data) {
-    return axios.post(`/api/updateUser.do`, data,{
+    return axios.post(`/api/user/updateUser.do`, data,{
       headers: {
         'Content-Type': 'application/json'
       }
@@ -56,12 +56,23 @@ let api={
    * @returns {Promise<AxiosResponse<T>>}
    */
   delUser:function (id) {
-    return axios.get(`/api/delUserById.do/`+id, {
+    return axios.get(`/api/user/delUserById.do/`+id, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       }
     });
   },
+  /**
+   * 获取当前登陆用户
+   * @returns {Promise<AxiosResponse<T>>}
+   */
+  current:function () {
+    return axios.get(`/api/user/current.do`, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      }
+    });
+  }
 };
 
 export default api;

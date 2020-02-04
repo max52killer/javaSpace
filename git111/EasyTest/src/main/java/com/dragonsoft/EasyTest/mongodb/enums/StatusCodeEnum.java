@@ -8,7 +8,8 @@ import com.dragonsoft.EasyTest.enums.IconEnum;
 public enum StatusCodeEnum implements IconEnum {
     SUCCESS("200", "成功"),
     ERROR("500", "失败"),
-    WARNING("300", "警告");
+    WARNING("300", "警告"),
+    FAIL("400","验证失败");
 
     private String code;
     private String desc;

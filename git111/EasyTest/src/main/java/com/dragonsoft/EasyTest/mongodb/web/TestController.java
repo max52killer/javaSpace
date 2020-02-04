@@ -9,6 +9,7 @@ import com.dragonsoft.EasyTest.mongodb.po.Test;
 import com.dragonsoft.EasyTest.mongodb.service.PersonService;
 import com.dragonsoft.EasyTest.mongodb.service.TestService;
 import com.dragonsoft.EasyTest.user.vo.User;
+import com.dragonsoft.EasyTest.util.excel.AnalysisExcelData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.LoggerFactory;
@@ -81,6 +82,8 @@ public class TestController {
             fos=new FileOutputStream(fullFileName);
             fos.write(file.getBytes());
             System.out.println("文件内容："+new String(file.getBytes(),"utf-8"));
+            List results=AnalysisExcelData.getExcelData(file);
+            System.out.println(results);
             result=new Result(StatusCodeEnum.SUCCESS.getCode(),"文件上传成功！！！");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

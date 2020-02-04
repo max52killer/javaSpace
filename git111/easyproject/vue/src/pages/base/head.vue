@@ -50,6 +50,13 @@
     //引用其它组件注册
     components: {},
     //定义组件中调用的函数
+    created() {
+      if(this.$route.path){
+        this.activeIndex=this.$route.path;
+      }
+    },
+    mounted() {
+    },
     methods: {
       handleEdit() {
         console.log("编辑信息。。。");
@@ -68,10 +75,6 @@
     },
     //过滤器，用于对展示的数据进行处理  value|method
     filters: {},
-    created() {
-    },
-    mounted() {
-    },
     updated() {
     },
     destroyed() {

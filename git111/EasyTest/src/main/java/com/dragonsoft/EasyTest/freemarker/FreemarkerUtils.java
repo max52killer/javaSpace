@@ -105,7 +105,7 @@ public class FreemarkerUtils {
     public static void main(String[] args) {
         FreemarkerUtils utils=new FreemarkerUtils();
         try {
-            System.out.println(utils.createDoc(utils.makeDatas(),"D://xxx01.doc"));
+            System.out.println(utils.createDoc(utils.makeDatas(),"D://xxx003.doc"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

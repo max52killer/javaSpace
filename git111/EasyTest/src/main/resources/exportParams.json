@@ -1,0 +1,30 @@
+{
+  "yhxxExport":{
+    "username":{
+      "name":"username",
+      "type":"string"
+    },
+    "nickName":{
+      "name":"",
+      "type":"string"
+    },
+    "sfzh":{
+      "name":"sfzh",
+      "type":"string"
+    },
+    "dept":{
+      "name":"dept",
+      "type":"code",
+      "codeId":"BM_DEPT"
+    },
+    "sex":{
+      "name":"sex",
+      "type":"code",
+      "codeId":"BM_SEX"
+    },
+    "age":{
+      "name":"age",
+      "type":"string"
+    }
+  }
+}

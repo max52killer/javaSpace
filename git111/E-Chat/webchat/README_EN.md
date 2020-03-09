@@ -69,9 +69,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-## Backend repository
-[https://github.com/weiyuc/webchat-backend](https://github.com/weiyuc/webchat-backend)
-
-## Online
-[https://weiyuc.cn](https://weiyuc.cn)
